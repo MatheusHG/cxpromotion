@@ -15,7 +15,17 @@ process.on('uncaughtException', (err) => {
 });
 
 const app = express();
-app.use(cors({ origin: config.frontendOrigin, credentials: true }));
+const allowedOrigins = new Set(config.frontendOrigins);
+app.use(
+  cors({
+    origin: (origin, cb) => {
+      if (!origin) return cb(null, true);
+      if (allowedOrigins.has('*') || allowedOrigins.has(origin)) return cb(null, true);
+      return cb(new Error(`Origin não permitida: ${origin}`));
+    },
+    credentials: true,
+  }),
+);
 app.use(express.json());
 
 app.get('/api/health', (_req, res) => res.json({ ok: true }));

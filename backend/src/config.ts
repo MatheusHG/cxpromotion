@@ -11,7 +11,10 @@ export const config = {
   nodeEnv: process.env.NODE_ENV ?? 'development',
   jwtSecret: required('JWT_SECRET'),
   jwtExpiresIn: process.env.JWT_EXPIRES_IN ?? '8h',
-  frontendOrigin: process.env.FRONTEND_ORIGIN ?? 'http://localhost:5173',
+  frontendOrigins: (process.env.FRONTEND_ORIGIN ?? 'http://localhost:5173')
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean),
   pg: {
     host: process.env.PG_HOST ?? 'localhost',
     port: Number(process.env.PG_PORT ?? 5432),
