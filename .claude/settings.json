@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "Bash(git -C /Users/matheushenrique/Documents/jbd/cx-promocoes status)"
+    ]
+  }
+}

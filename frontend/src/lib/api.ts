@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL ?? 'https://api-cx-promocoes.marjosports.tec.br/api';
+
 export const api = axios.create({
-  baseURL: '/api',
+  baseURL: API_BASE_URL,
 });
 
 api.interceptors.request.use((config) => {

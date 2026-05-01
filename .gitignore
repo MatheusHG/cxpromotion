@@ -5,6 +5,9 @@ dist/
 .env
 .env.*
 !.env.example
+# Frontend usa .env.production/.env.development pro build (URL pública, sem segredo)
+!frontend/.env.production
+!frontend/.env.development
 
 *.log
 .DS_Store
@@ -12,6 +15,7 @@ dist/
 # Editores
 .vscode/
 .idea/
+.claude/
 
 # OS
 Thumbs.db
@@ -22,3 +26,6 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 *.pid
+
+# TS build cache
+*.tsbuildinfo
