@@ -1,0 +1,24 @@
+node_modules/
+dist/
+
+# Env files (mantém .env.example versionado, ignora todo o resto)
+.env
+.env.*
+!.env.example
+
+*.log
+.DS_Store
+
+# Editores
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+
+# Logs e PIDs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.pid
