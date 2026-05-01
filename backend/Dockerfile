@@ -26,9 +26,15 @@ RUN npm ci --omit=dev && npm cache clean --force
 
 COPY --from=build /app/dist ./dist
 
-# Bin pra rodar migrate/seed dentro do container
-COPY --from=build /app/dist/migrate.js /app/migrate.js
-COPY --from=build /app/dist/seed.js    /app/seed.js
+# schema.sql não é compilado pelo tsc — copia direto do source pro lugar
+# que migrate.js espera (relativo ao __dirname do dist).
+COPY --from=build /app/src/db/schema.sql /app/dist/db/schema.sql
+
+# Entrypoint que roda migrate + seed antes de subir o app.
+# Como ambos são idempotentes (CREATE TABLE IF NOT EXISTS / SELECT antes de INSERT),
+# é seguro rodar em todo redeploy.
+COPY docker-entrypoint.sh /app/docker-entrypoint.sh
+RUN chmod +x /app/docker-entrypoint.sh
 
 EXPOSE 4000
-CMD ["node", "dist/index.js"]
+ENTRYPOINT ["/app/docker-entrypoint.sh"]

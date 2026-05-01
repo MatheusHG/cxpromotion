@@ -45,9 +45,10 @@ Project: cx-promocoes
 
 ### Primeiro deploy
 1. Salva e dá **Deploy**. Aguarda subir saudável (`/api/health` retorna `{ok:true}`)
-2. **Migrate** + **seed** rodam UMA vez. No Coolify, na aba do app:
-   - Terminal: `node migrate.js` → cria a tabela `cx_users`
-   - Terminal: `node seed.js` → cria `admin@jbd / admin123`
+2. **Migrate** e **seed** rodam automaticamente em todo start do container (entrypoint),
+   então não precisa abrir terminal — basta esperar o container subir.
+   - Migrate é idempotente (`CREATE TABLE IF NOT EXISTS`)
+   - Seed só insere o admin se ele ainda não existir
 3. **Loga no front com admin@jbd / admin123 e troca a senha imediatamente**
 
 ## 2. Frontend
